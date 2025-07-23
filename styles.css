@@ -1,0 +1,663 @@
+/* ===== VARIABLES CSS ===== */
+:root {
+    --primary-color: #FF6B35;      /* Naranja vibrante */
+    --secondary-color: #F7931E;    /* Naranja dorado */
+    --accent-color: #FFD23F;       /* Amarillo brillante */
+    --success-color: #4CAF50;      /* Verde éxito */
+    --danger-color: #FF5722;       /* Rojo */
+    --dark-color: #2C3E50;         /* Azul oscuro */
+    --light-color: #FFFFFF;        /* Blanco */
+    --gray-color: #95A5A6;         /* Gris */
+    --security-color: #2ECC71;     /* Verde seguridad */
+    --gradient-bg: linear-gradient(135deg, #FF6B35, #F7931E, #FFD23F);
+    --shadow: 0 8px 32px rgba(255, 107, 53, 0.3);
+    --border-radius: 20px;
+}
+
+/* ===== RESET Y BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--gradient-bg);
+    min-height: 100vh;
+    color: var(--dark-color);
+    overflow-x: hidden;
+}
+
+/* ===== CONTENEDOR PRINCIPAL ===== */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== HEADER ===== */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+    animation: slideDown 0.8s ease-out;
+    position: relative;
+}
+
+.logo h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 3rem;
+    color: var(--light-color);
+    text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+    margin-bottom: 10px;
+}
+
+.logo p {
+    font-size: 1.2rem;
+    color: var(--light-color);
+    font-weight: 300;
+    opacity: 0.9;
+}
+
+/* ===== BADGE DE SEGURIDAD ===== */
+.security-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: var(--security-color);
+    color: var(--light-color);
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+    animation: pulse 2s infinite;
+}
+
+.security-icon {
+    margin-right: 5px;
+}
+
+/* ===== SECCIÓN DEL JUEGO ===== */
+.game-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: fadeInUp 1s ease-out 0.3s both;
+}
+
+.game-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.game-title h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 2.5rem;
+    color: var(--light-color);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    margin-bottom: 10px;
+    animation: bounce 2s infinite;
+}
+
+.game-title p {
+    font-size: 1.1rem;
+    color: var(--light-color);
+    opacity: 0.9;
+    margin-bottom: 15px;
+}
+
+/* ===== INFORMACIÓN DE FECHA Y HORA ===== */
+.datetime-info {
+    margin-top: 15px;
+}
+
+.current-time {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--light-color);
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    animation: timeGlow 3s ease-in-out infinite;
+}
+
+.time-icon {
+    margin-right: 8px;
+}
+
+@keyframes timeGlow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+}
+
+/* ===== TARJETA DE RASPADO ===== */
+.scratch-card-container {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.scratch-card {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    cursor: crosshair;
+    transition: transform 0.3s ease;
+    animation: cardFloat 3s ease-in-out infinite;
+}
+
+.scratch-card:hover {
+    transform: scale(1.05);
+}
+
+/* Mensaje de premio (oculto debajo) */
+.prize-message {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--success-color), #66BB6A);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--light-color);
+    text-align: center;
+    padding: 20px;
+    z-index: 1;
+}
+
+.prize-icon {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    animation: pulse 2s infinite;
+}
+
+.prize-text {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    line-height: 1.3;
+    margin-bottom: 15px;
+}
+
+/* ===== VERIFICACIÓN DEL PREMIO ===== */
+.prize-verification {
+    font-size: 0.8rem;
+    opacity: 0.9;
+    margin-top: 10px;
+}
+
+.verification-item {
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.verification-label {
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+.verification-value {
+    font-family: 'Courier New', monospace;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+}
+
+/* Canvas de raspado */
+#scratchCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    border-radius: var(--border-radius);
+    background: var(--gray-color);
+    cursor: crosshair;
+}
+
+/* ===== INSTRUCCIONES ===== */
+.instructions {
+    text-align: center;
+    margin-top: 20px;
+    animation: pulse 2s infinite;
+}
+
+.instructions p {
+    color: var(--light-color);
+    font-size: 1rem;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    margin-bottom: 5px;
+}
+
+.security-note {
+    font-size: 0.9rem !important;
+    opacity: 0.8;
+    font-style: italic;
+}
+
+/* ===== SECCIÓN DE REINICIO ===== */
+.reset-section {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.next-play {
+    color: var(--light-color);
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.reset-btn {
+    background: var(--light-color);
+    color: var(--primary-color);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.reset-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    background: var(--accent-color);
+}
+
+/* ===== MODAL MEJORADO ===== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal {
+    background: var(--light-color);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    max-width: 450px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: scale(0.7) translateY(50px);
+    transition: all 0.3s ease;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-overlay.show .modal {
+    transform: scale(1) translateY(0);
+}
+
+.modal-header {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.modal-header h3 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.modal-security-badge {
+    background: var(--security-color);
+    color: var(--light-color);
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.modal-icon {
+    font-size: 4rem;
+    margin-bottom: 15px;
+    animation: bounce 1s infinite;
+}
+
+.modal-prize {
+    font-family: 'Fredoka One', cursive;
+    font-size: 1.5rem;
+    color: var(--dark-color);
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.modal-description {
+    color: var(--gray-color);
+    font-size: 1rem;
+    margin-bottom: 25px;
+    line-height: 1.4;
+}
+
+/* ===== VERIFICACIÓN EN EL MODAL ===== */
+.modal-verification {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 20px 0;
+    border-left: 4px solid var(--security-color);
+}
+
+.verification-title {
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.verification-details {
+    font-size: 0.85rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+.verification-details div {
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.verification-details strong {
+    color: var(--dark-color);
+}
+
+.modal-btn {
+    background: var(--gradient-bg);
+    color: var(--light-color);
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+    margin-bottom: 15px;
+}
+
+.modal-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+}
+
+.modal-security-note {
+    font-size: 0.8rem;
+    color: #666;
+    font-style: italic;
+    line-height: 1.3;
+    margin: 0;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px 0;
+}
+
+.footer p {
+    color: var(--light-color);
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-bottom: 5px;
+}
+
+.security-footer {
+    font-size: 0.8rem !important;
+    opacity: 0.6 !important;
+    font-style: italic;
+}
+
+/* ===== ANIMACIONES ===== */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes cardFloat {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+    }
+    
+    .logo h1 {
+        font-size: 2.5rem;
+    }
+    
+    .game-title h2 {
+        font-size: 2rem;
+    }
+    
+    .scratch-card {
+        width: 280px;
+        height: 180px;
+    }
+    
+    #scratchCanvas {
+        width: 280px;
+        height: 180px;
+    }
+    
+    .modal {
+        padding: 25px;
+        margin: 20px;
+    }
+    
+    .security-badge {
+        position: static;
+        display: inline-block;
+        margin-top: 10px;
+    }
+    
+    .current-time {
+        font-size: 0.85rem;
+        padding: 8px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo h1 {
+        font-size: 2rem;
+    }
+    
+    .game-title h2 {
+        font-size: 1.8rem;
+    }
+    
+    .scratch-card {
+        width: 260px;
+        height: 160px;
+    }
+    
+    #scratchCanvas {
+        width: 260px;
+        height: 160px;
+    }
+    
+    .current-time {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+}
+
+/* ===== ESTADOS ESPECIALES ===== */
+.scratch-card.completed {
+    animation: completedPulse 0.6s ease-in-out;
+}
+
+@keyframes completedPulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Efecto de partículas para celebración */
+.confetti {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: var(--accent-color);
+    animation: confettiFall 3s linear infinite;
+    z-index: 999;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* ===== ESTILOS PARA INFORMACIÓN DE JUEGO ANTERIOR ===== */
+.already-played {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.already-played .verification-info {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px 0;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.already-played .verification-info p {
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.already-played .verification-info strong {
+    color: var(--accent-color);
+}
+
+/* ===== INDICADORES DE SEGURIDAD ===== */
+.security-indicator {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--security-color);
+    color: var(--light-color);
+    padding: 10px 15px;
+    border-radius: 25px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
+    z-index: 100;
+    animation: securityPulse 3s infinite;
+}
+
+@keyframes securityPulse {
+    0%, 100% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+}
+

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snackfly - Rasca y Gana (Seguro)</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Meta tags de seguridad -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' fonts.googleapis.com fonts.gstatic.com;">
+    <meta name="referrer" content="no-referrer">
+    
+    <!-- Prevenir manipulación del cache -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+</head>
+<body>
+    <!-- Contenedor principal -->
+    <div class="container">
+        <!-- Header con logo de Snackfly -->
+        <header class="header">
+            <div class="logo">
+                <h1>🍿 Snackfly</h1>
+                <p>¡Tu tienda de snacks favorita!</p>
+            </div>
+            
+            <!-- Indicador de versión segura -->
+            <div class="security-badge">
+                <span class="security-icon">🔒</span>
+                <span class="security-text">Versión Segura</span>
+            </div>
+        </header>
+
+        <!-- Sección principal del juego -->
+        <main class="game-section">
+            <div class="game-title">
+                <h2>🎉 ¡RASCA Y GANA! 🎉</h2>
+                <p>Rasca la tarjeta para descubrir tu premio</p>
+                
+                <!-- Información de fecha y hora actual -->
+                <div class="datetime-info">
+                    <div class="current-time" id="currentTime">
+                        <span class="time-icon">🕐</span>
+                        <span id="timeDisplay">Cargando...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta de raspado -->
+            <div class="scratch-card-container">
+                <div class="scratch-card" id="scratchCard">
+                    <!-- Mensaje de premio oculto (debajo de la capa gris) -->
+                    <div class="prize-message" id="prizeMessage">
+                        <div class="prize-icon">🎁</div>
+                        <div class="prize-text" id="prizeText">
+                            ¡Cargando premio...!
+                        </div>
+                        
+                        <!-- Información de verificación (oculta inicialmente) -->
+                        <div class="prize-verification" id="prizeVerification" style="display: none;">
+                            <div class="verification-item">
+                                <span class="verification-label">📅 Generado:</span>
+                                <span class="verification-value" id="generationDate">--</span>
+                            </div>
+                            <div class="verification-item">
+                                <span class="verification-label">🔒 ID Sesión:</span>
+                                <span class="verification-value" id="sessionId">--</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Canvas para el efecto de raspado -->
+                    <canvas id="scratchCanvas" width="300" height="200"></canvas>
+                </div>
+                
+                <!-- Instrucciones -->
+                <div class="instructions">
+                    <p>👆 Rasca aquí con tu mouse o dedo</p>
+                    <p class="security-note">🔒 Cada premio incluye verificación de fecha y hora</p>
+                </div>
+            </div>
+
+            <!-- Botón para reiniciar (solo visible después de jugar) -->
+            <div class="reset-section" id="resetSection" style="display: none;">
+                <p class="next-play">¡Vuelve mañana para otro premio!</p>
+                <button class="reset-btn" id="resetBtn">🔄 Probar Demo</button>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 Snackfly - Todos los derechos reservados</p>
+            <p class="security-footer">🔒 Sistema con verificación de integridad</p>
+        </footer>
+    </div>
+
+    <!-- Modal de premio mejorado -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="prizeModal">
+            <div class="modal-header">
+                <h3>🎊 ¡FELICIDADES! 🎊</h3>
+                <div class="modal-security-badge">
+                    <span class="security-icon">🔒</span>
+                    <span>Premio Verificado</span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-icon" id="modalIcon">🎁</div>
+                <div class="modal-prize" id="modalPrize">¡Has ganado algo increíble!</div>
+                <div class="modal-description" id="modalDescription">Usa este premio en tu próxima compra</div>
+                
+                <!-- Sección de verificación en el modal -->
+                <div class="modal-verification">
+                    <div class="verification-title">📋 Información de Verificación</div>
+                    <div class="verification-details" id="modalVerificationDetails">
+                        <!-- Se llenará dinámicamente con JavaScript -->
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn" id="modalBtn">¡Genial!</button>
+                <p class="modal-security-note">
+                    🔒 Este premio incluye verificación de fecha, hora y sesión para prevenir fraudes
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio para efectos sonoros -->
+    <audio id="scratchSound" preload="auto">
+        <!-- Usaremos un sonido generado por código si no hay archivo -->
+    </audio>
+    <audio id="winSound" preload="auto">
+        <!-- Sonido de victoria -->
+    </audio>
+
+    <!-- Script principal (versión segura) -->
+    <script src="script.js"></script>
+    
+    <!-- Script para mostrar fecha/hora actual -->
+    <script>
+        // Actualizar reloj en tiempo real
+        function updateClock() {
+            const now = new Date();
+            const timeString = now.toLocaleString('es-ES', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            
+            const timeDisplay = document.getElementById('timeDisplay');
+            if (timeDisplay) {
+                timeDisplay.textContent = timeString;
+            }
+        }
+        
+        // Actualizar cada segundo
+        setInterval(updateClock, 1000);
+        updateClock(); // Llamada inicial
+        
+        // Detectar cambios de fecha/hora sospechosos
+        let lastTime = Date.now();
+        setInterval(() => {
+            const currentTime = Date.now();
+            const timeDiff = currentTime - lastTime;
+            
+            // Si el tiempo saltó más de 2 segundos (ajustando por lag), es sospechoso
+            if (timeDiff > 2500 || timeDiff < 500) {
+                console.warn('⚠️ Cambio de tiempo sospechoso detectado:', timeDiff + 'ms');
+            }
+            
+            lastTime = currentTime;
+        }, 1000);
+    </script>
+</body>
+</html>
+
